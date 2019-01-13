@@ -35,18 +35,28 @@ class MailList extends Component {
             return (
                 <li
                 key = {item.id}
-                onClick = {() => this.toggleMsg(item)}
                 className = {item.status ? 'let' : 'let active-letter'}
                 >
-                    {item.from} - {item.subject}
-                    <p className={this.getStatus(item.id)}>{item.text}</p>
+                    <input type="checkbox"/>
+                    <button className='star'></button>
+                    <div
+                        className='li-content'
+                        onClick = {() => this.toggleMsg(item)}
+                    >
+                        {item.from} - {item.subject}
+                        <p className={this.getStatus(item.id)}>{item.text}</p>
+                    </div>
                 </li>
             )
         });
 
         return (
             <div className="mail-list-container">
-                <ul mail-list>
+                <div className='mail-list__control-bar'>
+                    <button className='cb__delete-btn'>Delete</button>
+                    <button className='cb__mark-read-btn'>Mark</button>
+                </div>
+                <ul className='mail-list'>
                     {mailList}
                 </ul>
             </div>

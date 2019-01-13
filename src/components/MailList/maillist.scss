@@ -1,8 +1,18 @@
 .mail-list-container{
+  padding: 7px 0 0 5px;
   flex-basis: 80%;
+
+  .mail-list__control-bar{
+    display: flex;
+    button{
+      width: 50px;
+      height: 25px;
+    }
+  }
 
   ul{
     list-style: none;
+    padding: 0;
   }
 }
 
@@ -17,8 +27,24 @@
 .let{
   border: 1px solid #a5a5a5;
   margin-bottom: 1px;
+  display: flex;
+
+  .star{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-position-x: -1px;
+    background-position-y: 0;
+    background-color: #ffffff;
+    background-image: url(http://www.practicesuite.com/wp-content/uploads/2017/06/star.png);
+  }
+
+  .li-content{
+    margin-left: 3px;
+  }
 }
 
 .active-letter {
   font-weight: 700;
 }
+

@@ -8,6 +8,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 2px;
+
+  button {
+    height: 25px;
+  };
 }
 
 .input-fields{
@@ -34,11 +38,18 @@
     }
 
     .send-button{
+      text-align: center;
+      vertical-align: middle;
       height: 35px;
       width: 100px;
       background-color: #719cff;
       border-radius: 6px;
       border: 0px solid #719cff;
+    }
+
+    .send-button:hover,
+    .send-button:focus {
+      background: #507dba;
     }
   }
 
