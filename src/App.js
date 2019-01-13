@@ -84,7 +84,7 @@ class App extends Component {
           <Fragment>
               <Header/>
               <div className="main-region">
-                  <Menu changeFolder={this.changeFolder} active={activeCategory} />
+                  <Menu className='main-menu' changeFolder={this.changeFolder} active={activeCategory} />
                   <MailList mails={mailToDisplay} readMail={this.readMail} />
               </div>
           </Fragment>

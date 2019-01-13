@@ -45,8 +45,8 @@ class MailList extends Component {
         });
 
         return (
-            <div className="mail-list">
-                <ul>
+            <div className="mail-list-container">
+                <ul mail-list>
                     {mailList}
                 </ul>
             </div>

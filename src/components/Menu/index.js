@@ -33,9 +33,12 @@ class Menu extends Component {
 
         return (
             <Fragment>
-                <ul>
-                    {folderList}
-                </ul>
+                <div className='main-menu'>
+                    <button className='new-mail'>Write</button>
+                    <ul className='folder-list'>
+                        {folderList}
+                    </ul>
+                </div>
             </Fragment>
         );
     }
