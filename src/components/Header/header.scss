@@ -1,3 +1,30 @@
 header{
   display: flex;
+  justify-content: space-between;
+}
+
+.logo{
+  display: flex;
+
+  img{
+
+  }
+}
+
+.search-block{
+  display: flex;
+  width: 33%;
+
+  input {
+    width: 100%;
+  }
+}
+
+.control{
+  display: flex;
+  width: 7%;
+
+  .exit-button{
+    width: 100%;
+  }
 }
