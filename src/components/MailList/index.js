@@ -4,6 +4,8 @@ import './maillist.scss'
 class MailList extends Component {
     state = {
         openedMsg: [],
+        selectedMsg: [],
+        starMsg: [],
     };
 
     toggleMsg = (item) => {
@@ -29,6 +31,12 @@ class MailList extends Component {
         return openedMsg.includes(item) ? null : 'hidden';
     };
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        console.log(event.target)
+    };
+
     render() {
 
         let mailList = this.props.mails.map((item) => {
@@ -37,8 +45,8 @@ class MailList extends Component {
                 key = {item.id}
                 className = {item.status ? 'let' : 'let active-letter'}
                 >
-                    <input type="checkbox"/>
-                    <button className='star'></button>
+                    <input type="checkbox" name={item.id} value={item.id}/>
+                    <button className='star' id={item.id}/>
                     <div
                         className='li-content'
                         onClick = {() => this.toggleMsg(item)}
@@ -52,13 +60,15 @@ class MailList extends Component {
 
         return (
             <div className="mail-list-container">
-                <div className='mail-list__control-bar'>
-                    <button className='cb__delete-btn'>Delete</button>
-                    <button className='cb__mark-read-btn'>Mark</button>
-                </div>
-                <ul className='mail-list'>
-                    {mailList}
-                </ul>
+                <form className="mail-list-form" onSubmit={this.handleSubmit}>
+                    <div className='mail-list__control-bar'>
+                        <button className='cb__delete-btn'>Delete</button>
+                        <button type='submit' className='cb__mark-read-btn'>Mark</button>
+                    </div>
+                    <ul className='mail-list'>
+                        {mailList}
+                    </ul>
+                </form>
             </div>
         );
     }
