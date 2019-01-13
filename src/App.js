@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import Header from './components/Header'
 import Menu from './components/Menu'
 import MailList from './components/MailList'
+import NewEmail from './components/NewEmail'
 
 import './App.scss';
 
@@ -80,12 +81,19 @@ class App extends Component {
     render() {
         let activeCategory = this.state.active;
         let mailToDisplay = this.state.mailList[activeCategory];
+        let mainArea;
+        if (activeCategory === 'new email'){
+            mainArea = <NewEmail/>
+        } else if (activeCategory === 'received' || activeCategory === 'sent') {
+            mainArea = <MailList mails={mailToDisplay} readMail={this.readMail} />
+        }
+
         return (
           <Fragment>
               <Header/>
               <div className="main-region">
                   <Menu className='main-menu' changeFolder={this.changeFolder} active={activeCategory} />
-                  <MailList mails={mailToDisplay} readMail={this.readMail} />
+                  {mainArea}
               </div>
           </Fragment>
         );

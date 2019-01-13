@@ -13,7 +13,11 @@ class Menu extends Component {
                 id: 'sent'
             }
         ]
-    }
+    };
+
+    writeNewMail = () => {
+        this.props.changeFolder('new email');
+    };
 
     render() {
         let folderList = this.state.folders.map( (item) => {
@@ -34,7 +38,7 @@ class Menu extends Component {
         return (
             <Fragment>
                 <div className='main-menu'>
-                    <button className='new-mail'>Write</button>
+                    <button className='new-mail-btn' onClick={this.writeNewMail}>Write</button>
                     <ul className='folder-list'>
                         {folderList}
                     </ul>

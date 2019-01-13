@@ -1,5 +1,9 @@
 .mail-list-container{
   flex-basis: 80%;
+
+  ul{
+    list-style: none;
+  }
 }
 
 .mail-list{
@@ -8,6 +12,11 @@
 
 .hidden{
   display: none;
+}
+
+.let{
+  border: 1px solid #a5a5a5;
+  margin-bottom: 1px;
 }
 
 .active-letter {

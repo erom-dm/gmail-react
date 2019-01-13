@@ -36,7 +36,7 @@ class MailList extends Component {
                 <li
                 key = {item.id}
                 onClick = {() => this.toggleMsg(item)}
-                className = {item.status ? null : 'active-letter'}
+                className = {item.status ? 'let' : 'let active-letter'}
                 >
                     {item.from} - {item.subject}
                     <p className={this.getStatus(item.id)}>{item.text}</p>
