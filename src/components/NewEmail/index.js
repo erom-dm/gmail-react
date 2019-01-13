@@ -11,6 +11,10 @@ class NewEmail extends Component {
             text: '',
     };
 
+    changeFolder = () => {
+        return this.props.changeFolder('received');
+    };
+
     generateId = (subj='ph') => {
         return `${subj}_${new Date().getTime()}`
     };
@@ -57,7 +61,7 @@ class NewEmail extends Component {
                 <div className='new-mail-cont'>
                     <div className='header'>
                         <p>New Email</p>
-                        <button>Close</button>
+                        <button onClick={this.changeFolder}>Close</button>
                     </div>
                     <div className='input-fields'>
                         <form className='new-letter-form' onSubmit={this.handleSubmit}>

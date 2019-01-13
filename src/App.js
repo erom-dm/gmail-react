@@ -102,7 +102,7 @@ class App extends Component {
         let mailToDisplay = this.state.mailList[activeCategory];
         let mainArea;
         if (activeCategory === 'new email'){
-            mainArea = <NewEmail onSubmit={this.handleNewEmailSubmit}/>
+            mainArea = <NewEmail onSubmit={this.handleNewEmailSubmit} changeFolder={this.changeFolder}/>
         } else if (activeCategory === 'received' || activeCategory === 'sent') {
             mainArea = <MailList mails={mailToDisplay} readMail={this.readMail} />
         }
