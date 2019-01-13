@@ -11,32 +11,41 @@
 }
 
 .input-fields{
-  display: flex;
-  flex-direction: column;
 
-  .toField{
-    margin-bottom: 2px;
+
+  .new-letter-form{
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+
+    #toField{
+      margin-bottom: 2px;
+      flex-basis: 20px;
+    }
+
+    #subjectField{
+      margin-bottom: 2px;
+    }
+
+    #textField{
+      margin-bottom: 2px;
+      height: 45vh;
+      display: flex;
+    }
+
+    .send-button{
+      height: 35px;
+      width: 100px;
+      background-color: #719cff;
+      border-radius: 6px;
+      border: 0px solid #719cff;
+    }
   }
 
-  .subjectField{
-    margin-bottom: 2px;
-  }
-
-  .textField{
-    height: 45vh;
-    margin-bottom: 2px;
-  }
 }
 
 .bottom-bar{
 
-  .send-button{
-    height: 35px;
-    width: 100px;
-    background-color: #719cff;
-    border-radius: 6px;
-    border: 0px solid #719cff;
-  }
 }
 
 p{

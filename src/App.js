@@ -16,6 +16,7 @@ class App extends Component {
                     id: 1,
                     status: false,
                     from: 'test@test.ua',
+                    to: 'test@test.ua',
                     subject: 'Some test subject',
                     text: 'Сервис онлайн проверки текста на уникальность Text.ru покажет процент уникальности текста. Глубокая и качественная проверка найдет дубликаты и'
                 },
@@ -23,6 +24,7 @@ class App extends Component {
                     id: 2,
                     status: false,
                     from: 'test@ukr.net',
+                    to: 'test@test.ua',
                     subject: 'Ukr.net hello!',
                     text:'Проверьте грамотность текста онлайн, чтобы исправить все орфографические ошибки. Сервис проверки правописания Адвего работает на 20 языках'
                 },
@@ -30,6 +32,7 @@ class App extends Component {
                     id: 3,
                     status: false,
                     from: 'test@bigmir.net',
+                    to: 'test@test.ua',
                     subject: 'Bigmir subject',
                     text: 'Семантический анализ текста Адвего для SEO онлайн — профессиональный инструмент для оценки качества текстов, seo оптимизации статей и'
                 },
@@ -39,6 +42,7 @@ class App extends Component {
                     id: 4,
                     status: true,
                     from: 'friend@ukr.net',
+                    to: 'test@test.ua',
                     subject: 'Hello my friend',
                     text: 'A text (literary theory) is any object that can be read, including: Documents: Religious text, a writing that a religious tradition considers to be sacred; Textbook'
                 },
@@ -46,6 +50,7 @@ class App extends Component {
                     id: 5,
                     status: true,
                     from: 'some@bigmir.net',
+                    to: 'test@test.ua',
                     subject: 'Work proposition',
                     text: 'Функція TEXT дає змогу змінити спосіб відображення числа, застосувавши до нього форматування з кодами форматів. Це корисно, коли потрібно '
                 },
@@ -77,13 +82,27 @@ class App extends Component {
         });
     };
 
+    handleNewEmailSubmit = (newEmail) => {
+        let newSentFolder = this.state.mailList['sent'].map((item) => {
+            return {...item};
+        });
+
+        newSentFolder.push(newEmail);
+
+        this.setState(() => ({
+            mailList: {
+                ...this.state.mailList,
+                ['sent']: newSentFolder
+            }
+        }))
+    };
 
     render() {
         let activeCategory = this.state.active;
         let mailToDisplay = this.state.mailList[activeCategory];
         let mainArea;
         if (activeCategory === 'new email'){
-            mainArea = <NewEmail/>
+            mainArea = <NewEmail onSubmit={this.handleNewEmailSubmit}/>
         } else if (activeCategory === 'received' || activeCategory === 'sent') {
             mainArea = <MailList mails={mailToDisplay} readMail={this.readMail} />
         }
@@ -92,7 +111,10 @@ class App extends Component {
           <Fragment>
               <Header/>
               <div className="main-region">
-                  <Menu className='main-menu' changeFolder={this.changeFolder} active={activeCategory} />
+                  <Menu className='main-menu'
+                        changeFolder={this.changeFolder}
+                        active={activeCategory}
+                  />
                   {mainArea}
               </div>
           </Fragment>
