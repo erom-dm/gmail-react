@@ -4,7 +4,7 @@ import './newemail.scss'
 class NewEmail extends Component {
     state = {
             id: '',
-            status: false,
+            status: true,
             from: 'test@test.ua',
             to: '',
             subject: '',

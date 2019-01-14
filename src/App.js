@@ -128,7 +128,7 @@ class App extends Component {
     this.setState(() => ({
       mailList: {
         ...this.state.mailList,
-        ["sent"]: newSentFolder
+        sent: newSentFolder  //['sent']
       }
     }));
   };

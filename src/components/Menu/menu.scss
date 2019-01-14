@@ -5,6 +5,14 @@
   flex-basis: 13%;
 }
 
+.folder-list{
+
+  li:hover{
+    cursor: pointer;
+    background-color: rgba(99,145,186,0.6);
+  }
+}
+
 .new-mail-btn{
   height: 35px;
 }
