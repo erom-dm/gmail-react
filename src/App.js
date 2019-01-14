@@ -22,38 +22,14 @@ class App extends Component {
                 },
                 {
                     id: 2,
-                    status: false,
+                    status: true,
                     from: 'test@ukr.net',
                     to: 'test@test.ua',
                     subject: 'Ukr.net hello!',
                     text:'Проверьте грамотность текста онлайн, чтобы исправить все орфографические ошибки. Сервис проверки правописания Адвего работает на 20 языках'
                 },
-                {
-                    id: 3,
-                    status: false,
-                    from: 'test@bigmir.net',
-                    to: 'test@test.ua',
-                    subject: 'Bigmir subject',
-                    text: 'Семантический анализ текста Адвего для SEO онлайн — профессиональный инструмент для оценки качества текстов, seo оптимизации статей и'
-                },
             ],
             sent: [
-                {
-                    id: 4,
-                    status: true,
-                    from: 'friend@ukr.net',
-                    to: 'test@test.ua',
-                    subject: 'Hello my friend',
-                    text: 'A text (literary theory) is any object that can be read, including: Documents: Religious text, a writing that a religious tradition considers to be sacred; Textbook'
-                },
-                {
-                    id: 5,
-                    status: true,
-                    from: 'some@bigmir.net',
-                    to: 'test@test.ua',
-                    subject: 'Work proposition',
-                    text: 'Функція TEXT дає змогу змінити спосіб відображення числа, застосувавши до нього форматування з кодами форматів. Це корисно, коли потрібно '
-                },
             ],
         },
 
