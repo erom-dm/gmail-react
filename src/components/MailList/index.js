@@ -59,6 +59,7 @@ class MailList extends Component {
 
   render() {
     let mailList = this.props.mails.map(item => {
+      let importantStatus = item.important === true ? 'star' : 'no-star';
       return (
         <li key={item.id} className={item.status ? "let" : "let active-letter"}>
           <CheckBox
@@ -69,7 +70,7 @@ class MailList extends Component {
             id={item.id}
           />
 
-          <button className="star" id={item.id} />
+          <button className={importantStatus} id={item.id} onClick={this.props.markAsImportant(item.id)} />
           <div className="li-content" onClick={() => this.toggleMsg(item)}>
             {item.from} - {item.subject}
             <p className={this.getStatus(item.id)}>{item.text}</p>

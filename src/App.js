@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
-
+import {Route} from 'react-router-dom';
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import MailList from "./components/MailList";
 import NewEmail from "./components/NewEmail";
+
+//import Dashboard from'/components/Dashboard';
 
 import "./App.scss";
 
@@ -19,7 +21,8 @@ class App extends Component {
           to: "test@test.ua",
           subject: "Some test subject",
           text:
-            "Сервис онлайн проверки текста на уникальность Text.ru покажет процент уникальности текста. Глубокая и качественная проверка найдет дубликаты и"
+            "Сервис онлайн проверки текста на уникальность Text.ru покажет процент уникальности текста. Глубокая и качественная проверка найдет дубликаты и",
+          important: false,
         },
         {
           id: "someId2",
@@ -28,7 +31,8 @@ class App extends Component {
           to: "test@test.ua",
           subject: "Ukr.net hello!",
           text:
-            "Проверьте грамотность текста онлайн, чтобы исправить все орфографические ошибки. Сервис проверки правописания Адвего работает на 20 языках"
+            "Проверьте грамотность текста онлайн, чтобы исправить все орфографические ошибки. Сервис проверки правописания Адвего работает на 20 языках",
+          important: true,
         }
       ],
       sent: []
@@ -47,9 +51,6 @@ class App extends Component {
       return newObj;
     });
     let listToUpdate = [];
-
-    console.log(mailList);
-    console.log(listToUpdate);
 
     for (const key of Object.keys(ids)) {
       for (let obj of mailList) {
@@ -90,15 +91,30 @@ class App extends Component {
       }
     }
 
-    console.log("new list to upd: ");
-    console.log(mailList);
-
     this.setState({
       mailList: {
         ...this.state.mailList,
         [this.state.active]: mailList
       }
     });
+  };
+
+  markAsImportant = id => {
+      let mailListUpd = this.state.mailList[this.state.active].map(item => {
+          let newObj = { ...item };
+          if (newObj.id === id) {
+              newObj.important = !newObj.important;
+          }
+          return newObj;
+      });
+
+      this.setState({
+          mailList: {
+              ...this.state.mailList,
+              [this.state.active]: mailListUpd
+          }
+      });
+
   };
 
   readMail = id => {
@@ -150,11 +166,14 @@ class App extends Component {
           mails={mailToDisplay}
           readMail={this.readMail}
           markAsRead={this.markAsRead}
+          markAsImportant={this.markAsImportant}
         />
       );
     }
 
     return (
+       // <Route path='/' component={Header} />
+       // <Route path='/dashboard' component={Dashboard} />
       <Fragment>
         <Header />
         <div className="main-region">

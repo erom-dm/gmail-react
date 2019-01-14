@@ -9,6 +9,7 @@ class NewEmail extends Component {
             to: '',
             subject: '',
             text: '',
+            important: false,
     };
 
     changeFolder = () => {
