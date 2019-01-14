@@ -42,57 +42,63 @@ class App extends Component {
   };
 
   markAsRead = ids => {
-    let mailListUpd = this.state.mailList[this.state.active].map(item => {
+    let mailList = this.state.mailList[this.state.active].map(item => {
       let newObj = { ...item };
       return newObj;
     });
+    let listToUpdate = [];
 
-    console.log("MailListUpd: ");
-    console.log(mailListUpd);
+    console.log(mailList);
+    console.log(listToUpdate);
+
     for (const key of Object.keys(ids)) {
-      for (let obj of mailListUpd) {
-        let index = mailListUpd.indexOf(obj);
-        if (obj.id === key) {
-          if (ids[key] === false) {
-            mailListUpd = mailListUpd.splice(index, 1);
-          }
-        } else {
-          mailListUpd = mailListUpd.splice(index, 1);
+      for (let obj of mailList) {
+        if (obj.id === key && ids[key] === true) {
+          listToUpdate.push(obj);
         }
       }
     }
 
-    console.log("MailListUpd after iteration: ");
-    console.log(mailListUpd);
+    let markingMode = "mark as read";
+    let allRead = true;
+    for (let el of listToUpdate) {
+      if (el.status === false) {
+        allRead = false;
+      }
+    }
+    markingMode = allRead === true ? "mark as unread" : "mark as read";
 
-    // let markingMode = 'mark as read';
+    if (markingMode === "mark as read") {
+      listToUpdate = listToUpdate.map(item => {
+        let newObj = { ...item };
+        newObj.status = true;
+        return newObj;
+      });
+    } else {
+      listToUpdate = listToUpdate.map(item => {
+        let newObj = { ...item };
+        newObj.status = false;
+        return newObj;
+      });
+    }
 
-    // for (let el in mailListUpd) {
-    //   markingMode = el.status = true ? 'mark as unread' : 'mark as read';
-    // }
+    for (const obj of mailList) {
+      for (const el of listToUpdate) {
+        if (el.id === obj.id) {
+          mailList.splice(mailList.indexOf(obj), 1, el);
+        }
+      }
+    }
 
-    // if (markingMode === 'mark as read'){
-    //   mailListUpd = mailListUpd.map((item) => {
-    //     let newObj = { ...item };
-    //     newObj.status = true;
-    //     return newObj;
-    //   })
-    // } else {
-    //   mailListUpd = mailListUpd.map((item) => {
-    //     let newObj = { ...item };
-    //     newObj.status = false;
-    //     return newObj;
-    //   })
-    // }
+    console.log("new list to upd: ");
+    console.log(mailList);
 
-    // console.log(mailListUpd);
-
-    // this.setState({
-    //   mailList: {
-    //     ...this.state.mailList,
-    //     [this.state.active]: mailListUpd
-    //   }
-    // },);
+    this.setState({
+      mailList: {
+        ...this.state.mailList,
+        [this.state.active]: mailList
+      }
+    });
   };
 
   readMail = id => {
