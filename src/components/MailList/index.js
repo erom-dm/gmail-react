@@ -1,77 +1,97 @@
-import React, { Component } from 'react';
-import './maillist.scss'
+import React, { Component } from "react";
+import CheckBox from "../CheckBox";
+import "./maillist.scss";
 
 class MailList extends Component {
-    state = {
-        openedMsg: [],
-        selectedMsg: [],
-        starMsg: [],
-    };
+  state = {
+    openedMsg: [],
+    selectedMsg: {},
+    starMsg: []
+  };
 
-    toggleMsg = (item) => {
-        let temp = this.state.openedMsg;
+  componentDidMount() {
+    const { mails } = this.props;
+    let checkboxInitialState = {};
 
-        if(temp.includes(item.id)){
-            temp.splice(temp.indexOf(item.id), 1);
-        } else {
-            if(!item.status){
-                this.props.readMail(item.id);
-            }
-            temp.push(item.id);
-        }
+    mails.forEach(mail => (checkboxInitialState[mail.id]: false));
 
-        this.setState({
-            openedMsg: temp,
-        })
-    };
+    this.setState({ selectedMsg: checkboxInitialState });
+  }
 
-    getStatus = (item) => {
-        let openedMsg = this.state.openedMsg;
+  toggleMsg = item => {
+    let temp = this.state.openedMsg;
 
-        return openedMsg.includes(item) ? null : 'hidden';
-    };
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-
-        console.log(event.target)
-    };
-
-    render() {
-
-        let mailList = this.props.mails.map((item) => {
-            return (
-                <li
-                key = {item.id}
-                className = {item.status ? 'let' : 'let active-letter'}
-                >
-                    <input type="checkbox" name={item.id} value={item.id}/>
-                    <button className='star' id={item.id}/>
-                    <div
-                        className='li-content'
-                        onClick = {() => this.toggleMsg(item)}
-                    >
-                        {item.from} - {item.subject}
-                        <p className={this.getStatus(item.id)}>{item.text}</p>
-                    </div>
-                </li>
-            )
-        });
-
-        return (
-            <div className="mail-list-container">
-                <form className="mail-list-form" onSubmit={this.handleSubmit}>
-                    <div className='mail-list__control-bar'>
-                        <button className='cb__delete-btn'>Delete</button>
-                        <button type='submit' className='cb__mark-read-btn'>Mark</button>
-                    </div>
-                    <ul className='mail-list'>
-                        {mailList}
-                    </ul>
-                </form>
-            </div>
-        );
+    if (temp.includes(item.id)) {
+      temp.splice(temp.indexOf(item.id), 1);
+    } else {
+      if (!item.status) {
+        this.props.readMail(item.id);
+      }
+      temp.push(item.id);
     }
+
+    this.setState({
+      openedMsg: temp
+    });
+  };
+
+  getStatus = item => {
+    let openedMsg = this.state.openedMsg;
+
+    return openedMsg.includes(item) ? null : "hidden";
+  };
+
+  handleCheckboxChange = event => {
+    const { name } = event.target;
+
+    this.setState(prevState => ({
+      selectedMsg: {
+        ...prevState.selectedMsg,
+        [name]: !prevState.selectedMsg[name]
+      }
+    }));
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.markAsRead(this.state.selectedMsg);
+  };
+
+  render() {
+    let mailList = this.props.mails.map(item => {
+      return (
+        <li key={item.id} className={item.status ? "let" : "let active-letter"}>
+          <CheckBox
+            label=""
+            name={item.id}
+            isSelected={this.state.selectedMsg[item.id]}
+            onCheckboxChange={this.handleCheckboxChange}
+            id={item.id}
+          />
+
+          <button className="star" id={item.id} />
+          <div className="li-content" onClick={() => this.toggleMsg(item)}>
+            {item.from} - {item.subject}
+            <p className={this.getStatus(item.id)}>{item.text}</p>
+          </div>
+        </li>
+      );
+    });
+
+    return (
+      <div className="mail-list-container">
+        <form className="mail-list-form" onSubmit={this.handleSubmit}>
+          <div className="mail-list__control-bar">
+            <button className="cb__delete-btn">Delete</button>
+            <button type="submit" className="cb__mark-read-btn">
+              Mark
+            </button>
+          </div>
+          <ul className="mail-list">{mailList}</ul>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default MailList;
