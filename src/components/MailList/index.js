@@ -13,7 +13,7 @@ class MailList extends Component {
     const { mails } = this.props;
     let checkboxInitialState = {};
 
-    mails.forEach(mail => (checkboxInitialState[mail.id]: false));
+    mails.forEach((mail) => (checkboxInitialState[mail.id] = false));
 
     this.setState({ selectedMsg: checkboxInitialState });
   }
@@ -58,6 +58,8 @@ class MailList extends Component {
   };
 
   render() {
+    const checkboxForm = 'checkbox-form';
+    const importantFrom = 'important-form';
     let mailList = this.props.mails.map(item => {
       let importantStatus = item.important === true ? 'star' : 'no-star';
       return (
@@ -70,7 +72,7 @@ class MailList extends Component {
             id={item.id}
           />
 
-          <button className={importantStatus} id={item.id} onClick={this.props.markAsImportant(item.id)} />
+          <button className={importantStatus} id={item.id} onClick={() => this.props.markAsImportant(item.id)} form={importantFrom}  />
           <div className="li-content" onClick={() => this.toggleMsg(item)}>
             {item.from} - {item.subject}
             <p className={this.getStatus(item.id)}>{item.text}</p>
@@ -81,15 +83,15 @@ class MailList extends Component {
 
     return (
       <div className="mail-list-container">
-        <form className="mail-list-form" onSubmit={this.handleSubmit}>
           <div className="mail-list__control-bar">
             <button className="cb__delete-btn">Delete</button>
-            <button type="submit" className="cb__mark-read-btn">
+            <button type="submit" form={checkboxForm} className="cb__mark-read-btn">
               Mark
             </button>
           </div>
-          <ul className="mail-list">{mailList}</ul>
-        </form>
+          <form id={checkboxForm} className="mail-list-form" onSubmit={this.handleSubmit}>
+            <ul className="mail-list">{mailList}</ul>
+          </form>
       </div>
     );
   }

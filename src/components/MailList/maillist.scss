@@ -35,11 +35,14 @@
     border: none;
     background-position-x: -1px;
     background-position-y: 0;
-    background-color: #ffffff;
-    background-image: url(http://www.practicesuite.com/wp-content/uploads/2017/06/star.png);
+    background: #ffffff url(http://www.practicesuite.com/wp-content/uploads/2017/06/star.png);
   }
 
   .no-star{
+    background-position-x: -1px;
+    background-position-y: 0;
+    border: none;
+    background: #ffffff url(https://seodigitalsolutions.co.uk/wp-content/uploads/2017/11/tick1.png);
     width: 20px;
     height: 20px;
   }
