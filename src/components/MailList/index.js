@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import {NavLink} from 'react-router-dom';
 import CheckBox from "../CheckBox";
+import Mail from '../Mail';
 import "./maillist.scss";
 
 class MailList extends Component {
@@ -76,12 +78,13 @@ class MailList extends Component {
           <div className="li-content" onClick={() => this.toggleMsg(item)}>
             {item.from} - {item.subject}
             <p className={this.getStatus(item.id)}>{item.text}</p>
+              {/*<NavLink to='/mail/:id' component={Mail}>
+              </NavLink>*/}
           </div>
         </li>
       );
     });
-
-    return (
+      return (
       <div className="mail-list-container">
           <div className="mail-list__control-bar">
             <button className="cb__delete-btn">Delete</button>
