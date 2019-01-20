@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { connect } from 'react-redux';``
 import Header from "../Header";
 import Menu from "../Menu";
 import MailList from "../MailList";
