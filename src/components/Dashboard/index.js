@@ -31,7 +31,8 @@ class Dashboard extends Component {
                 }
             ],
             sent: []
-        }
+        },
+        showMsg: false,
     };
 
     changeFolder = folderId => {
@@ -136,12 +137,21 @@ class Dashboard extends Component {
 
         newSentFolder.push(newEmail);
 
-        this.setState(() => ({
-            mailList: {
-                ...this.state.mailList,
-                sent: newSentFolder  //['sent']
-            }
-        }));
+        this.setState(
+            () => ({
+                mailList: {
+                    ...this.state.mailList,
+                    sent: newSentFolder  //['sent']
+                },
+                showMsg: true,
+            }),
+            () => {setTimeout(
+                () => {
+                    this.setState({
+                            showMsg: false,
+                })}, 3000
+            )}
+        );
     };
 
     render() {
@@ -153,6 +163,7 @@ class Dashboard extends Component {
                 <NewEmail
                     onSubmit={this.handleNewEmailSubmit}
                     changeFolder={this.changeFolder}
+                    showMsg={this.state.showMsg}
                 />
             );
         } else if (activeCategory === "received" || activeCategory === "sent") {

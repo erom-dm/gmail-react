@@ -37,27 +37,48 @@
       display: flex;
     }
 
-    .send-button{
-      text-align: center;
-      vertical-align: middle;
-      height: 35px;
-      width: 100px;
-      background-color: #719cff;
-      border-radius: 6px;
-      border: 0px solid #719cff;
-    }
+    .bottom-bar{
+      display: flex;
+      align-content: center;
 
-    .send-button:hover,
-    .send-button:focus {
-      background: #507dba;
+
+      .send-button{
+        text-align: center;
+        vertical-align: middle;
+        height: 35px;
+        width: 100px;
+        background-color: #719cff;
+        border-radius: 6px;
+        border: 0px solid #719cff;
+      }
+
+      .send-button:hover,
+      .send-button:focus {
+        background: #507dba;
+      }
+
+      .message-field {
+        display: flex;
+        margin-left: 15px;
+        font-size: 20px;
+
+        p{
+          align-self: center;
+        }
+
+        .new-mail-hide-msg{
+          display: none;
+        }
+
+        .new-mail-show-msg{
+          display: block;
+        }
+      }
     }
   }
 
 }
 
-.bottom-bar{
-
-}
 
 p{
   margin: 0;

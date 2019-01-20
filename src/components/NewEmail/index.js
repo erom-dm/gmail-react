@@ -12,6 +12,12 @@ class NewEmail extends Component {
             important: false,
     };
 
+    componentDidUpdate(oldProps){
+        if(this.props.showMsg !== oldProps.showMsg){
+            this.forceUpdate();
+        }
+    }
+
     changeFolder = () => {
         return this.props.changeFolder('received');
     };
@@ -48,8 +54,6 @@ class NewEmail extends Component {
             () => ({id: id}),
             () => this.props.onSubmit(this.state)
         );
-
-
     };
 
     render() {
@@ -89,16 +93,20 @@ class NewEmail extends Component {
                                 placeholder=""
                                 onChange={this.handleChange}
                             />
-                            <button
-                                className='send-button'
-                                type='submit'
-                            >
-                                Send
-                            </button>
+                            <div className='bottom-bar'>
+                                <button
+                                    className='send-button'
+                                    type='submit'
+                                >
+                                    Send
+                                </button>
+                                <div className='message-field' >
+                                    <p className={this.props.showMsg ? 'new-mail-show-msg' : 'new-mail-hide-msg'}>
+                                        Your mail has been sent!
+                                    </p>
+                                </div>
+                            </div>
                         </form>
-                    </div>
-                    <div className='bottom-bar'>
-
                     </div>
                 </div>
             </Fragment>
