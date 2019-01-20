@@ -8,7 +8,7 @@ export function setActiveFolderState (active){
     }
 }
 
-export function setNewMailMsgState (active, showMsg){
+export function setNewMailMsgState (showMsg){
     return{
         type: SET_NEW_MAIL_MSG_STATE,
         showMsg,

@@ -1,40 +1,32 @@
 import React, { Component, Fragment } from "react";
-import { connect } from 'react-redux';``
+import { connect } from 'react-redux';
+import {handleInitialData} from "../../actions/shared";
+import {addMailToMailList} from "../../actions/mailList";
 import Header from "../Header";
 import Menu from "../Menu";
 import MailList from "../MailList";
 import NewEmail from "../NewEmail";
+import { mailList } from "../../utils/fakeState";
+import { active } from "../../utils/fakeState";
+import { showMsg } from "../../utils/fakeState";
+
 
 class Dashboard extends Component {
+
     state = {
-        active: "received",
-        mailList: {
-            received: [
-                {
-                    id: "suchUniqueMuchWow",
-                    status: false,
-                    from: "test@test.ua",
-                    to: "test@test.ua",
-                    subject: "Some test subject",
-                    text:
-                        "Сервис онлайн проверки текста на уникальность Text.ru покажет процент уникальности текста. Глубокая и качественная проверка найдет дубликаты и",
-                    important: false,
-                },
-                {
-                    id: "someId2",
-                    status: true,
-                    from: "test@ukr.net",
-                    to: "test@test.ua",
-                    subject: "Ukr.net hello!",
-                    text:
-                        "Проверьте грамотность текста онлайн, чтобы исправить все орфографические ошибки. Сервис проверки правописания Адвего работает на 20 языках",
-                    important: true,
-                }
-            ],
-            sent: []
-        },
+        active: "new email",
         showMsg: false,
+        mailList: {
+            received: this.props.received,
+            sent: this.props.sent,
+        }
     };
+
+    componentDidMount(){
+        this.props.dispatch(handleInitialData(
+            mailList, active, showMsg
+        ))
+    }
 
     changeFolder = folderId => {
         this.setState({
@@ -42,29 +34,27 @@ class Dashboard extends Component {
         });
     };
 
-    markAsRead = ids => {
-        let mailList = this.state.mailList[this.state.active].map(item => {
-            let newObj = { ...item };
-            return newObj;
+    markAsRead = (ids) => {
+        let newMailList = this.props.mailList[this.state.active].map(item => {
+            return { ...item };
         });
         let listToUpdate = [];
 
         for (const key of Object.keys(ids)) {
-            for (let obj of mailList) {
+            for (let obj of newMailList) {
                 if (obj.id === key && ids[key] === true) {
                     listToUpdate.push(obj);
                 }
             }
         }
 
-        let markingMode = "mark as read";
         let allRead = true;
         for (let el of listToUpdate) {
             if (el.status === false) {
                 allRead = false;
             }
         }
-        markingMode = allRead === true ? "mark as unread" : "mark as read";
+        let markingMode = allRead === true ? "mark as unread" : "mark as read";
 
         if (markingMode === "mark as read") {
             listToUpdate = listToUpdate.map(item => {
@@ -80,20 +70,22 @@ class Dashboard extends Component {
             });
         }
 
-        for (const obj of mailList) {
+        for (const obj of newMailList) {
             for (const el of listToUpdate) {
                 if (el.id === obj.id) {
-                    mailList.splice(mailList.indexOf(obj), 1, el);
+                    newMailList.splice(newMailList.indexOf(obj), 1, el);
                 }
             }
         }
 
-        this.setState({
+        /*his.setState({
             mailList: {
                 ...this.state.mailList,
-                [this.state.active]: mailList
+                [this.state.active]: newMailList
             }
-        });
+        });*/
+
+        this.props.dispatch(addMailToMailList(newMailList, this.state.active))
     };
 
     markAsImportant = id => {
@@ -115,7 +107,7 @@ class Dashboard extends Component {
     };
 
     readMail = id => {
-        let mailListUpd = this.state.mailList[this.state.active].map(item => {
+        let mailListUpd = this.props.mailList[this.state.active].map(item => {
             let newObj = { ...item };
             if (newObj.id === id) {
                 newObj.status = true;
@@ -132,7 +124,7 @@ class Dashboard extends Component {
     };
 
     handleNewEmailSubmit = newEmail => {
-        let newSentFolder = this.state.mailList["sent"].map(item => {
+        let newSentFolder = this.props.mailList["sent"].map(item => {
             return { ...item };
         });
 
@@ -156,8 +148,9 @@ class Dashboard extends Component {
     };
 
     render() {
+        console.log(this.props);
         let activeCategory = this.state.active;
-        let mailToDisplay = this.state.mailList[activeCategory];
+        let mailToDisplay = this.props.mailList[activeCategory];
         let mainArea;
         if (activeCategory === "new email") {
             mainArea = (
@@ -196,4 +189,14 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+function mapStateToProps({mailList}) {
+    return{
+        mailList: {
+            received: mailList.received,
+            sent: mailList.sent,
+        },
+    }
+}
+
+
+export default connect(mapStateToProps)(Dashboard);

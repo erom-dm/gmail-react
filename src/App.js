@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Dashboard from './components/Dashboard';
 import Mail from './components/Mail';
 
@@ -22,5 +23,5 @@ class App extends Component {
     }
 }
 
-export default App;
+export default connect()(App);
 

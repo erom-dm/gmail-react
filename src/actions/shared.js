@@ -10,6 +10,7 @@ export function handleInitialData (mailList, active, showMsg) {
         dispatch(receiveMailList(mailList));
         dispatch(setActiveFolderState(active));
         dispatch(setNewMailMsgState(showMsg));
+
     }
 }
 
