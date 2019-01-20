@@ -1,10 +1,8 @@
 import {applyMiddleware} from 'redux';
+import logger from './logger';
+import thunk from 'redux-thunk';
 
 // import otherMiddleware from './here';
 
-export default applyMiddleware({
-    //middleware 1
-    //middleware 2
-    //..
-})
+export default applyMiddleware(thunk, logger)
 

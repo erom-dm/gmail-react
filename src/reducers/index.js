@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux';
+import mailList from './mailList';
+import appState from './appState';
+
 
 // import otherReducers from '/here';
 
 export default combineReducers({
-    //reducer 1
-    //reducer 2
-    //...
+    mailList,
+    appState,
 })
