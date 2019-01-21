@@ -21,4 +21,11 @@ ReactDOM.render(
 );
 
 // API
-// https://next.json-generator.com/EJlHLZyQ8
+//url = https://next.json-generator.com/api/json/get/EJlHLZyQ8
+
+ /*
+    axios.get(url)
+        .then(data => data.smh)
+        .then(data => console.log(data))
+        .catch(() => console.log('do something')
+}*/
