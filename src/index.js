@@ -20,3 +20,5 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
+// API
+// https://next.json-generator.com/EJlHLZyQ8
