@@ -1,11 +1,12 @@
-import {combineReducers} from 'redux';
-import mailList from './mailList';
-import appState from './appState';
-
+import { combineReducers } from "redux";
+import mailList from "./mailList";
+import active from "./active";
+import showMsg from "./showMsg";
 
 // import otherReducers from '/here';
 
 export default combineReducers({
-    mailList,
-    appState,
-})
+  mailList,
+  active,
+  showMsg
+});

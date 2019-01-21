@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { setActiveFolder } from '../../actions/appState';
+import { connect } from 'react-redux';
 import './menu.scss'
 
 class Menu extends Component {
@@ -36,7 +37,7 @@ class Menu extends Component {
             <Fragment>
                 <div className='main-menu'>
                     <button className='new-mail-btn'
-                            onClick={this.props.dispatch(setActiveFolder({active:'new email'}))}
+                            onClick={() => this.props.dispatch(setActiveFolder({active:'new email'}))}
                     >
                         Write
                     </button>
@@ -49,4 +50,10 @@ class Menu extends Component {
     }
 }
 
-export default Menu;
+function mapStateToProps(state){
+  return {
+    active: state.active,
+  }
+}
+
+export default connect(mapStateToProps)(Menu);

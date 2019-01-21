@@ -11,9 +11,10 @@ class Header extends Component {
                 <div className="logo">
                     <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x.png" alt="Logo"/>
                 </div>
-                <div className="search-block">
-                    <Search/>
-                </div>
+                {//<div className="search-block">
+                    //<Search/>
+                //</div>
+                }
                 <div className="control">
                     <UserControl/>
                 </div>
