@@ -1,4 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import { setActiveFolder } from "../../actions/appState";
+import { addMailToMailList } from "../../actions/mailList";
+import { setNewMailMsgState } from "../../actions/appState";
 import './newemail.scss'
 
 class NewEmail extends Component {
@@ -17,10 +20,6 @@ class NewEmail extends Component {
             this.forceUpdate();
         }
     }
-
-    changeFolder = () => {
-        return this.props.changeFolder('received');
-    };
 
     generateId = (subj='ph') => {
         return `${subj}_${new Date().getTime()}`
@@ -46,13 +45,21 @@ class NewEmail extends Component {
         this.setState(() => ({[field]: value}))
     };
 
+    newSubmit = this.props.dispatch((dispatch) => {
+        dispatch(addMailToMailList(this.state));
+        dispatch(setNewMailMsgState({showMsg:true}));
+        setTimeout(() => {
+            dispatch(setNewMailMsgState({showMsg:false}));
+        }, 3000)
+    });
+
     handleSubmit = (event) => {
         event.preventDefault();
         let id = this.generateId(this.state.subject);
 
         this.setState(
             () => ({id: id}),
-            () => this.props.onSubmit(this.state)
+            () => this.newSubmit,
         );
     };
 
@@ -66,7 +73,9 @@ class NewEmail extends Component {
                 <div className='new-mail-cont'>
                     <div className='header'>
                         <p>New Email</p>
-                        <button onClick={this.changeFolder}>Close</button>
+                        <button onClick={this.props.dispatch(setActiveFolder({active:'received'}))}>
+                            Close
+                        </button>
                     </div>
                     <div className='input-fields'>
                         <form className='new-letter-form' onSubmit={this.handleSubmit}>
