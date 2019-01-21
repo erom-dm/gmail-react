@@ -1,4 +1,4 @@
-import {receiveMailList} from "./mailList";
+/*import {receiveMailList} from "./mailList";
 import {setActiveFolder} from "./appState";
 import {setNewMailMsgState} from "./appState";
 
@@ -11,6 +11,6 @@ export function handleInitialData (mailList, active, showMsg) {
         dispatch(setActiveFolder(active));
         dispatch(setNewMailMsgState(showMsg));
     }
-}
+}*/
 
 

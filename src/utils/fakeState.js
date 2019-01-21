@@ -1,6 +1,6 @@
 // hardcoded initial state in place of API
 
-export let mailList = {
+export let MailList = {
     received: [
         {
             id: "suchUniqueMuchWow",
