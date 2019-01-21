@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
 import {handleInitialData} from "../../actions/shared";
-import {addMailToMailList} from "../../actions/mailList";
 import Header from "../Header";
 import Menu from "../Menu";
 import MailList from "../MailList";
@@ -12,15 +11,6 @@ import { showMsg } from "../../utils/fakeState";
 
 
 class Dashboard extends Component {
-
-    state = {
-        active: "new email",
-        showMsg: false,
-        mailList: {
-            received: this.props.received,
-            sent: this.props.sent,
-        }
-    };
 
     componentDidMount(){
         this.props.dispatch(handleInitialData(
@@ -78,14 +68,13 @@ class Dashboard extends Component {
             }
         }
 
-        /*his.setState({
+        this.setState({
             mailList: {
                 ...this.state.mailList,
                 [this.state.active]: newMailList
             }
-        });*/
+        });
 
-        this.props.dispatch(addMailToMailList(newMailList, this.state.active))
     };
 
     markAsImportant = id => {
@@ -123,7 +112,7 @@ class Dashboard extends Component {
         });
     };
 
-    handleNewEmailSubmit = newEmail => {
+    /*handleNewEmailSubmit = newEmail => {
         let newSentFolder = this.props.mailList["sent"].map(item => {
             return { ...item };
         });
@@ -145,11 +134,13 @@ class Dashboard extends Component {
                 })}, 3000
             )}
         );
-    };
+    };*/
 
     render() {
+        console.log('Dashboard props: ');
         console.log(this.props);
-        let activeCategory = this.state.active;
+
+        let activeCategory = this.props.active;
         let mailToDisplay = this.props.mailList[activeCategory];
         let mainArea;
         if (activeCategory === "new email") {
@@ -189,12 +180,14 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps({mailList}) {
+function mapStateToProps({mailList, active, showMsg}) {
     return{
         mailList: {
             received: mailList.received,
             sent: mailList.sent,
         },
+        active,
+        showMsg,
     }
 }
 

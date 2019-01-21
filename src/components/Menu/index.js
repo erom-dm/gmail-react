@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { setActiveFolder } from '../../actions/appState';
 import './menu.scss'
 
 class Menu extends Component {
@@ -15,10 +16,6 @@ class Menu extends Component {
         ]
     };
 
-    writeNewMail = () => {
-        this.props.changeFolder('new email');
-    };
-
     render() {
         let folderList = this.state.folders.map( (item) => {
             let classN = null;
@@ -27,7 +24,7 @@ class Menu extends Component {
             }
             return (<li
                     key = {item.id}
-                    onClick = {() => this.props.changeFolder(item.id)}
+                    onClick = {() => this.props.dispatch(setActiveFolder({active:item.id}))}
                     className = {classN}
                     >
                         {item.name}
@@ -39,7 +36,7 @@ class Menu extends Component {
             <Fragment>
                 <div className='main-menu'>
                     <button className='new-mail-btn'
-                            onClick={this.writeNewMail}
+                            onClick={this.props.dispatch(setActiveFolder({active:'new email'}))}
                     >
                         Write
                     </button>

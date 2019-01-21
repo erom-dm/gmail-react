@@ -1,5 +1,5 @@
 import {receiveMailList} from "./mailList";
-import {setActiveFolderState} from "./appState";
+import {setActiveFolder} from "./appState";
 import {setNewMailMsgState} from "./appState";
 
 export function handleInitialData (mailList, active, showMsg) {
@@ -8,9 +8,8 @@ export function handleInitialData (mailList, active, showMsg) {
         // return it here, handling dispatch as usual with a promise (.then())
         // Requires thunk-middleware, as we're returning function, not an obj
         dispatch(receiveMailList(mailList));
-        dispatch(setActiveFolderState(active));
+        dispatch(setActiveFolder(active));
         dispatch(setNewMailMsgState(showMsg));
-
     }
 }
 

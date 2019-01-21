@@ -9,10 +9,9 @@ export default function mailList (state = {}, action) {
                 ...action.mailList,
             };
         case ADD_MAIL_TO_MAIL_LIST:
-            return{
-                ...state,
-                ...action,
-            };
+            let newState = {...state};
+            newState.mailList['sent'].push(action.mail);
+            return newState;
         default:
             return state
     }
