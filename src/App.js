@@ -3,17 +3,14 @@ import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import Dashboard from "./components/Dashboard";
 import Mail from "./components/Mail";
-import { handleInitialData } from "./actions/shared";
+/*import { handleInitialData } from "./actions/shared";
 import { mailList } from "./utils/fakeState";
 import { active } from "./utils/fakeState";
-import { showMsg } from "./utils/fakeState";
+import { showMsg } from "./utils/fakeState";*/
 
 import "./App.scss";
 
 class App extends Component {
-  componentDidMount() {
-    this.props.dispatch(handleInitialData(mailList, active, showMsg));
-  }
 
   render() {
     return (

@@ -2,8 +2,9 @@ import { RECEIVE_MAIL_LIST } from "../actions/mailList";
 import { ADD_MAIL_TO_MAIL_LIST } from "../actions/mailList";
 import { MARK_AS_READ } from "../actions/mailList";
 import { MARK_AS_IMPORTANT } from "../actions/mailList";
+import {mailList} from "../utils/fakeState";
 
-export default function mailList(state = {}, action) {
+export default function mailListReducer(state = mailList, action) {
   switch (action.type) {
     case RECEIVE_MAIL_LIST:
       return {

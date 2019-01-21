@@ -7,7 +7,7 @@ import NewEmail from "../NewEmail";
 
 class Dashboard extends Component {
   render() {
-    let activeCategory = this.props.active.active;
+    let activeCategory = this.props.active;
     let mainArea;
     if (activeCategory === "new email") {
       mainArea = <NewEmail />;
@@ -32,8 +32,8 @@ class Dashboard extends Component {
 function mapStateToProps({ mailList, active, showMsg }) {
   return {
     mailList: {
-      received: mailList.received,
-      sent: mailList.sent
+      received: mailList,
+      sent: mailList
     },
     active,
     showMsg
