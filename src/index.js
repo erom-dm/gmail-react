@@ -8,7 +8,10 @@ import middleware from "./middleware";
 import "./index.scss";
 import App from "./App";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// eslint-disable-next-line
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+    // eslint-disable-next-line
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) || compose;
 const store = createStore(reducer, composeEnhancers(middleware));
 
 ReactDOM.render(

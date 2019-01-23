@@ -11,9 +11,9 @@ export default function mailList(state = MailList, action) {
         ...state,
         ...action.mailList
       };
-    case ADD_MAIL_TO_MAIL_LIST:
+      case ADD_MAIL_TO_MAIL_LIST:
       let newState = { ...state };
-      newState.mailList["sent"].push(action.mail);
+      newState.sent.push(action.mail);
       return newState;
     case MARK_AS_READ:
       console.log("<<<<<<<<<>>>>>>>>>>");

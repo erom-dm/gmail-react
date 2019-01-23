@@ -52,7 +52,7 @@ class Menu extends Component {
 
 function mapStateToProps(state){
   return {
-    active: state.active,
+    active: state.appState.activeFolder.active,
   }
 }
 

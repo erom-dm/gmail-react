@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { markAsRead } from "../../actions/mailList";
 import { markAsImportant } from "../../actions/mailList";
 //import {NavLink} from 'react-router-dom';
-import CheckBox from "../CheckBox";
 //import Mail from '../Mail';
+import CheckBox from "../CheckBox";
 import "./maillist.scss";
 
 class MailList extends Component {
@@ -69,7 +69,7 @@ class MailList extends Component {
             onClick={() => this.props.dispatch(markAsImportant(item.id))}
             form={importantFrom}
           />
-          <div className="li-content" onClick={() => this.toggleMsg(item)}>
+          <div id={item.id} className="li-content" onClick={() => this.toggleMsg(item)}>
             {item.from} - {item.subject}
             <p className={this.getStatus(item.id)}>{item.text}</p>
             {/*<NavLink to='/mail/:id' component={Mail}>
@@ -103,8 +103,10 @@ class MailList extends Component {
 }
 
 function mapStateToProps(state) {
+  let activeFolder = state.appState.activeFolder.active;
+
   return {
-    mailsToShow: state.mailList[state.active.active]
+    mailsToShow: state.mailList[activeFolder]
   };
 }
 

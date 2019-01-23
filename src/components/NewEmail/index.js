@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { setActiveFolder } from "../../actions/appState";
 import { addMailToMailList } from "../../actions/mailList";
 import { setNewMailMsgState } from "../../actions/appState";
@@ -14,12 +15,6 @@ class NewEmail extends Component {
             text: '',
             important: false,
     };
-
-    componentDidUpdate(oldProps){
-        if(this.props.showMsg !== oldProps.showMsg){
-            this.forceUpdate();
-        }
-    }
 
     generateId = (subj='ph') => {
         return `${subj}_${new Date().getTime()}`
@@ -45,7 +40,7 @@ class NewEmail extends Component {
         this.setState(() => ({[field]: value}))
     };
 
-    newSubmit = this.props.dispatch((dispatch) => {
+    newSubmit =  this.props.dispatch((dispatch) => {
         dispatch(addMailToMailList(this.state));
         dispatch(setNewMailMsgState({showMsg:true}));
         setTimeout(() => {
@@ -73,19 +68,19 @@ class NewEmail extends Component {
                 <div className='new-mail-cont'>
                     <div className='header'>
                         <p>New Email</p>
-                        <button onClick={this.props.dispatch(setActiveFolder({active:'received'}))}>
+                        <button onClick={() => this.props.dispatch(setActiveFolder({active:'received'}))}>
                             Close
                         </button>
                     </div>
                     <div className='input-fields'>
-                        <form className='new-letter-form' onSubmit={this.handleSubmit}>
+                        <form className='new-letter-form' onSubmit={() => this.handleSubmit}>
                             <input
                                 id='toField'
                                 type="text"
                                 autoComplete='off'
                                 value={to}
                                 placeholder="To"
-                                onChange={this.handleChange}
+                                onChange={() => this.handleChange}
                             />
                             <input
                                 id='subjectField'
@@ -93,14 +88,14 @@ class NewEmail extends Component {
                                 autoComplete='off'
                                 value={subject}
                                 placeholder="Subject"
-                                onChange={this.handleChange}
+                                onChange={() => this.handleChange}
                             />
                             <textarea
                                 id='textField'
                                 autoComplete='off'
                                 value={text}
                                 placeholder=""
-                                onChange={this.handleChange}
+                                onChange={() => this.handleChange}
                             />
                             <div className='bottom-bar'>
                                 <button
@@ -123,4 +118,13 @@ class NewEmail extends Component {
     }
 }
 
-export default NewEmail;
+function mapStateToProps(state) {
+    let activeFolder = state.appState.activeFolder.active;
+
+    return {
+        showMsg: state.appState.showNewMsgNotif.showMsg,
+        mailsToShow: state.mailList[activeFolder]
+    };
+}
+
+export default connect(mapStateToProps)(NewEmail);

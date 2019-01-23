@@ -26,5 +26,5 @@ export let MailList = {
         sent: []
 };
 
-export let active = {active: "received"};
-export let showMsg = {showMsg: false};
+export let activeFolder = {active: "received"};
+export let showNewMsgNotif = {showMsg: false};
