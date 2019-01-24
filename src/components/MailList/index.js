@@ -13,30 +13,10 @@ class MailList extends Component {
     starMsg: []
   };
 
-  componentDidMount() {
-    const mails = this.props.mailsToShow;
-    let checkboxInitialState = {};
-
-    mails.forEach(mail => (checkboxInitialState[mail.id] = false));
-
-    this.setState({ selectedMsg: checkboxInitialState });
-  }
-
   getStatus = item => {
     let openedMsg = this.props.mailsToShow;
 
     return openedMsg.includes(item) ? null : "hidden";
-  };
-
-  handleCheckboxChange = event => {
-    const { name } = event.target;
-
-    this.setState(prevState => ({
-      selectedMsg: {
-        ...prevState.selectedMsg,
-        [name]: !prevState.selectedMsg[name]
-      }
-    }));
   };
 
   handleSubmit = event => {
@@ -58,8 +38,7 @@ class MailList extends Component {
           <CheckBox
             label=""
             name={item.id}
-            isSelected={this.state.selectedMsg[item.id]}
-            onCheckboxChange={this.handleCheckboxChange}
+            isSelected={item.selected}
             id={item.id}
           />
 

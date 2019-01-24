@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from "react";
+import { connect } from 'react-redux';
+import { selectMail } from "../../actions/mailList";
 
 class CheckBox extends Component {
+
   render() {
     return (
       <Fragment>
@@ -9,8 +12,7 @@ class CheckBox extends Component {
             <input
               type="checkbox"
               name={this.props.name}
-              checked={this.props.isSelected}
-              onChange={this.props.onCheckboxChange}
+              onClick={this.props.check(this.props.id, this.props.activeFolder)}
               className="form-check-input"
             />
             {this.props.label}
@@ -21,4 +23,17 @@ class CheckBox extends Component {
   }
 }
 
-export default CheckBox;
+
+function mapStateToProps(state) {
+    return{
+        activeFolder: state.appState.activeFolder['active'],
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+   return({
+       check: (id, activeFolder) => {dispatch(selectMail(id, activeFolder))}
+   })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckBox);

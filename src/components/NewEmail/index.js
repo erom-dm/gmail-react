@@ -7,13 +7,14 @@ import './newemail.scss'
 
 class NewEmail extends Component {
     state = {
-            id: '',
-            status: true,
-            from: 'test@test.ua',
-            to: '',
-            subject: '',
-            text: '',
-            important: false,
+        id: '',
+        status: true,
+        from: 'test@test.ua',
+        to: '',
+        subject: '',
+        text: '',
+        important: false,
+        selected: false,
     };
 
     generateId = (subj='ph') => {
@@ -80,7 +81,7 @@ class NewEmail extends Component {
                                 autoComplete='off'
                                 value={to}
                                 placeholder="To"
-                                onChange={() => this.handleChange}
+                                onChange={this.handleChange}
                             />
                             <input
                                 id='subjectField'
@@ -88,14 +89,14 @@ class NewEmail extends Component {
                                 autoComplete='off'
                                 value={subject}
                                 placeholder="Subject"
-                                onChange={() => this.handleChange}
+                                onChange={this.handleChange}
                             />
                             <textarea
                                 id='textField'
                                 autoComplete='off'
                                 value={text}
                                 placeholder=""
-                                onChange={() => this.handleChange}
+                                onChange={this.handleChange}
                             />
                             <div className='bottom-bar'>
                                 <button
