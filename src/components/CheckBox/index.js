@@ -1,8 +1,30 @@
 import React, { Component, Fragment } from "react";
-import { connect } from 'react-redux';
-import { selectMail } from "../../actions/mailList";
+import { connect } from "react-redux";
+import { addSelected } from "../../actions/input";
 
 class CheckBox extends Component {
+  state = {
+    id: this.props.name,
+    checked: false
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.checked !== this.state.checked) {
+      this.props.updSelected(this.state);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.updSelected({ id: this.props.name, checked: false });
+  }
+
+  handleInputChange = event => {
+    let value = event.target.checked;
+
+    this.setState({
+      checked: value
+    });
+  };
 
   render() {
     return (
@@ -12,7 +34,8 @@ class CheckBox extends Component {
             <input
               type="checkbox"
               name={this.props.name}
-              onClick={this.props.check(this.props.id, this.props.activeFolder)}
+              checked={this.state.checked}
+              onChange={this.handleInputChange}
               className="form-check-input"
             />
             {this.props.label}
@@ -23,17 +46,11 @@ class CheckBox extends Component {
   }
 }
 
+const mapDispatchToProps = {
+  updSelected: addSelected
+};
 
-function mapStateToProps(state) {
-    return{
-        activeFolder: state.appState.activeFolder['active'],
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-   return({
-       check: (id, activeFolder) => {dispatch(selectMail(id, activeFolder))}
-   })
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CheckBox);
+export default connect(
+  null,
+  mapDispatchToProps
+)(CheckBox);

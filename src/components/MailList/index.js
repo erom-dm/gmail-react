@@ -21,7 +21,8 @@ class MailList extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.dispatch(markAsRead(this.state.selectedMsg));
+    alert("form submited!");
+    //this.props.dispatch(markAsRead(this.state.selectedMsg));
   };
 
   toggleMsg = item => {
@@ -42,13 +43,13 @@ class MailList extends Component {
             id={item.id}
           />
 
+          {/*IMPORTANT BUTTON TODO*/}
           <button
             className={importantStatus}
             id={item.id}
-            onClick={() => this.props.dispatch(markAsImportant(item.id))}
             form={importantFrom}
           />
-          <div id={item.id} className="li-content" onClick={() => this.toggleMsg(item)}>
+          <div id={item.id} className="li-content">
             {item.from} - {item.subject}
             <p className={this.getStatus(item.id)}>{item.text}</p>
             {/*<NavLink to='/mail/:id' component={Mail}>
