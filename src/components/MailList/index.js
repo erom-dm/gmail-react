@@ -8,11 +8,6 @@ import CheckBox from "../CheckBox";
 import "./maillist.scss";
 
 class MailList extends Component {
-  state = {
-    selectedMsg: {},
-    starMsg: []
-  };
-
   getStatus = item => {
     let openedMsg = this.props.mailsToShow;
 
@@ -25,9 +20,9 @@ class MailList extends Component {
     //this.props.dispatch(markAsRead(this.state.selectedMsg));
   };
 
-  toggleMsg = item => {
-    alert("implement read mail later" + item);
-  };
+  // toggleMsg = item => {
+  //   alert("implement read mail later" + item);
+  // };
 
   render() {
     const checkboxForm = "checkbox-form";

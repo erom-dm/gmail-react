@@ -21,10 +21,6 @@ export default function input(state = { selected, important }, action) {
       const tmp = { selected: { [id1]: important } };
 
       return merge(stateCopy, tmp);
-    case UPD_SELECTED:
-      return;
-    case UPD_IMPORTANT:
-      return;
     default:
       return state;
   }
