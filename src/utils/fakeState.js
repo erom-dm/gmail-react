@@ -4,7 +4,7 @@ export let MailList = {
   received: [
     {
       id: "suchUniqueMuchWow",
-      status: false,
+      readStatus: false,
       from: "test@test.ua",
       to: "test@test.ua",
       subject: "Some test subject",
@@ -15,7 +15,7 @@ export let MailList = {
     },
     {
       id: "someId2",
-      status: true,
+      readStatus: true,
       from: "test@ukr.net",
       to: "test@test.ua",
       subject: "Ukr.net hello!",

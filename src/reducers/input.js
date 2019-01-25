@@ -1,9 +1,4 @@
-import {
-  ADD_SELECTED,
-  ADD_IMPORTANT,
-  UPD_IMPORTANT,
-  UPD_SELECTED
-} from "../actions/input";
+import { ADD_SELECTED, ADD_IMPORTANT } from "../actions/input";
 import { selected, important } from "../utils/fakeState";
 import merge from "deepmerge";
 

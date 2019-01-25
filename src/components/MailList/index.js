@@ -14,15 +14,40 @@ class MailList extends Component {
     return openedMsg.includes(item) ? null : "hidden";
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    alert("form submited!");
-    //this.props.dispatch(markAsRead(this.state.selectedMsg));
+  selectMarkMode = () => {
+    let selectedMails = this.props.selectedMails;
+    // Array filled with ID's of mails that are currently selected
+    let selectedIDs = [];
+    for (let property in selectedMails) {
+      if (selectedMails.hasOwnProperty(property)) {
+        if (selectedMails[property]) {
+          selectedIDs.push(property);
+        }
+      }
+    }
+
+    let allRead = true;
+    let mails = this.props.mailsToShow;
+
+    for (let mail in mails) {
+      if (!mails[mail].readStatus && selectedIDs.includes(mails[mail].id)) {
+        allRead = false;
+      }
+    }
+
+    let markingMode = allRead ? "mark as unread" : "mark as read";
+    return {
+      markingMode: markingMode,
+      selectedIDs: selectedIDs
+    };
   };
 
-  // toggleMsg = item => {
-  //   alert("implement read mail later" + item);
-  // };
+  markBtn = event => {
+    event.preventDefault();
+    let data = this.selectMarkMode();
+
+    this.props.markAsRead(data);
+  };
 
   render() {
     const checkboxForm = "checkbox-form";
@@ -30,7 +55,10 @@ class MailList extends Component {
     let mailList = this.props.mailsToShow.map(item => {
       let importantStatus = item.important === true ? "star" : "no-star";
       return (
-        <li key={item.id} className={item.status ? "let" : "let active-letter"}>
+        <li
+          key={item.id}
+          className={item.readStatus ? "let" : "let active-letter"}
+        >
           <CheckBox
             label=""
             name={item.id}
@@ -58,8 +86,9 @@ class MailList extends Component {
         <div className="mail-list__control-bar">
           <button className="cb__delete-btn">Delete</button>
           <button
-            type="submit"
-            form={checkboxForm}
+            onClick={this.markBtn}
+            // type="submit"
+            // form={checkboxForm}
             className="cb__mark-read-btn"
           >
             Mark
@@ -81,8 +110,16 @@ function mapStateToProps(state) {
   let activeFolder = state.appState.activeFolder.active;
 
   return {
-    mailsToShow: state.mailList[activeFolder]
+    mailsToShow: state.mailList[activeFolder],
+    selectedMails: state.input["selected"]
   };
 }
 
-export default connect(mapStateToProps)(MailList);
+const mapDispatchToProps = {
+  markAsRead: markAsRead
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MailList);

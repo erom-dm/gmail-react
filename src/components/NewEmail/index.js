@@ -8,7 +8,7 @@ import "./newemail.scss";
 class NewEmail extends Component {
   state = {
     id: "",
-    status: true,
+    readStatus: true,
     from: "test@test.ua",
     to: "",
     subject: "",

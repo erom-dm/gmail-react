@@ -18,9 +18,13 @@ export function addMailToMailList(mail) {
   };
 }
 
-export function markAsRead() {
+export function markAsRead(payload) {
+  // payload:
+  // mode = "mark as unread" / "mark as read"
+  // selectedIDs = ['id1', 'id2', etc]
   return {
-    type: MARK_AS_READ
+    type: MARK_AS_READ,
+    payload
   };
 }
 
