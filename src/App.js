@@ -28,5 +28,6 @@ class App extends Component {
 
 // Check reduxForm, field from 'react redux'
 // Check JSON.stringify
+// Check React testing with Jest and Enzyme
 
 export default connect()(App);

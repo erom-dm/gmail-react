@@ -48,6 +48,7 @@ class MailList extends Component {
     event.preventDefault();
     let data = this.selectMarkMode();
 
+    console.log('1 - MailList component');
     this.props.markAsRead(data);
   };
 
