@@ -26,4 +26,7 @@ class App extends Component {
   }
 }
 
+// Check reduxForm, field from 'react redux'
+// Check JSON.stringify
+
 export default connect()(App);

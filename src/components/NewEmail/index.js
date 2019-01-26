@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { setActiveFolder } from "../../actions/appState";
-import { addMailToMailList } from "../../actions/mailList";
-import { setNewMailMsgState } from "../../actions/appState";
+// import { setActiveFolder } from "../../actions/appState";
+// import { addMailToMailList } from "../../actions/mailList";
+// import { setNewMailMsgState } from "../../actions/appState";
 import "./newemail.scss";
 
 class NewEmail extends Component {

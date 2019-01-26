@@ -2,7 +2,8 @@ import { MARK_AS_READ } from "../actions/mailList";
 
 const markerLogic = store => next => action => {
   if (action.type === MARK_AS_READ) {
-    let state = store.getState();
+    //?
+    let state = {...store.getState()};
     let { markingMode, selectedIDs } = action.payload;
     let mailList = state.mailList[state.appState.activeFolder.active];
 
@@ -14,8 +15,14 @@ const markerLogic = store => next => action => {
       }
       return item;
     });
-    action.payload = mailList;
-    return next(action);
+
+    const newAction = {
+        type: MARK_AS_READ,
+        payload: mailList,
+    };
+
+    //action.payload = mailList;
+    return next(newAction);
   }
 
   return next(action);

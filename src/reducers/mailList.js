@@ -16,10 +16,12 @@ export default function mailList(state = MailList, action) {
       let newState = { ...state };
       newState.sent.push(action.mail);
       return newState;
-    case MARK_AS_READ:
+      case MARK_AS_READ:
+          console.log('<<<<<<<<>>>>>>>>');
+          console.log(action.payload);
       return {
         ...state,
-        [state[action.activeFolder]]: action.payload
+        ...action.payload
       };
     case MARK_AS_IMPORTANT:
       let mailListUpd = state.mailList[state.active].map(item => {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { markAsRead } from "../../actions/mailList";
-import { markAsImportant } from "../../actions/mailList";
+// import { markAsImportant } from "../../actions/mailList";
 //import {NavLink} from 'react-router-dom';
 //import Mail from '../Mail';
 import CheckBox from "../CheckBox";
@@ -30,8 +30,10 @@ class MailList extends Component {
     let mails = this.props.mailsToShow;
 
     for (let mail in mails) {
-      if (!mails[mail].readStatus && selectedIDs.includes(mails[mail].id)) {
-        allRead = false;
+      if(mails.hasOwnProperty(mail)){
+          if (!mails[mail].readStatus && selectedIDs.includes(mails[mail].id)) {
+              allRead = false;
+          }
       }
     }
 
@@ -116,8 +118,15 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  markAsRead: markAsRead
+    markAsRead: markAsRead,
 };
+
+// Both this and ^ works
+/*const mapDispatchToProps = (dispatch) => {
+    return{
+        markAsRead: (data) => dispatch(markAsRead(data)),
+    }
+};*/
 
 export default connect(
   mapStateToProps,
