@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import EmailForm from "./EmailForm";
+import { addMailToMailList } from "../../actions/mailList";
+import { setActiveFolder } from "../../actions/appState";
 import "./newemail.scss";
 
 class NewEmail extends Component {
@@ -50,15 +52,11 @@ class NewEmail extends Component {
   //     }, 3000)
   // });
 
-  // handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     let id = this.generateId(this.state.subject);
-
-  //     this.setState(
-  //         () => ({id: id}),
-  //         () => this.newSubmit,
-  //     );
-  // };
+  handleSubmit = (event) => {
+      event.preventDefault();
+      this.props.addNewMail(this.props.newMail);
+      this.props.setActiveFolder({active: 'sent'});
+  };
 
   render() {
 
@@ -71,7 +69,7 @@ class NewEmail extends Component {
             <button>Close</button>
           </div>
           <div className="input-fields">
-            <EmailForm onSubmit={this.submit} initialValues={this.getInitialValues()}/>
+            <EmailForm handleSubmit={this.handleSubmit} initialValues={this.getInitialValues()}/>
           </div>
         </div>
       </Fragment>
@@ -84,8 +82,14 @@ function mapStateToProps(state) {
 
   return {
     showMsg: state.appState.showNewMsgNotif.showMsg,
-    mailsToShow: state.mailList[activeFolder]
+    mailsToShow: state.mailList[activeFolder],
+    newMail: state.form,
   };
 }
 
-export default connect(mapStateToProps)(NewEmail);
+const mapDispatchToProps = {
+    addNewMail: addMailToMailList,
+    setActiveFolder: setActiveFolder,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewEmail);

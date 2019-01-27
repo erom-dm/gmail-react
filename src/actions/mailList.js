@@ -14,7 +14,7 @@ export function receiveMailList(mailList) {
 export function addMailToMailList(mail) {
   return {
     type: ADD_MAIL_TO_MAIL_LIST,
-    mail
+    mail: mail.newEmail.values,
   };
 }
 

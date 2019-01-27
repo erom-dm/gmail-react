@@ -16,7 +16,7 @@ export default function mailList(state = MailList, action) {
       let newState = { ...state };
       newState.sent.push(action.mail);
       return newState;
-      case MARK_AS_READ:
+    case MARK_AS_READ:
           console.log('4 - MailList reducer');
       return {
         ...state,

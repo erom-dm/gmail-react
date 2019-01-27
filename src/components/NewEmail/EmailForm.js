@@ -9,16 +9,13 @@ class EmailForm extends Component{
         return (
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="To">To</label>
-                    <Field name="To" component={customInput} type="email" placeholder="To..."/>
+                    <Field name="to" component={customInput} type="email" placeholder="To..."/>
                 </div>
                 <div>
-                    <label htmlFor="subject">Subject</label>
                     <Field name="subject" component={customInput} type="text" placeholder="Subject"/>
                 </div>
                 <div>
-                    <label htmlFor="content">Content</label>
-                    <Field name="content" component={customTextArea} type="textarea" placeholder=""/>
+                    <Field name="text" component={customTextArea} type="textarea" placeholder=""/>
                 </div>
                 <button type="submit">Submit</button>
             </form>
@@ -26,4 +23,4 @@ class EmailForm extends Component{
     }
 }
 
-export default reduxForm({ form: 'new-email' })(EmailForm);
+export default reduxForm({ form: 'newEmail' })(EmailForm);
