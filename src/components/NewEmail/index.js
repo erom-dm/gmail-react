@@ -1,45 +1,46 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-// import { setActiveFolder } from "../../actions/appState";
-// import { addMailToMailList } from "../../actions/mailList";
-// import { setNewMailMsgState } from "../../actions/appState";
+import EmailForm from "./EmailForm";
 import "./newemail.scss";
 
 class NewEmail extends Component {
-  state = {
-    id: "",
-    readStatus: true,
-    from: "test@test.ua",
-    to: "",
-    subject: "",
-    text: "",
-    important: false,
-    selected: false
+
+  getInitialValues = () => {
+    return {
+        id: this.generateId(),
+        readStatus: true,
+        from: "test@test.ua",
+        to: "",
+        subject: "",
+        text: "",
+        important: false,
+        selected: false
+    }
   };
 
   generateId = (subj = "ph") => {
-    return `${subj}_${new Date().getTime()}`;
+     return `${subj}_${new Date().getTime()}`;
   };
 
-  handleChange = event => {
-    const value = event.target.value;
-    let field = "";
-
-    switch (event.target.id) {
-      case "toField":
-        field = "to";
-        break;
-      case "subjectField":
-        field = "subject";
-        break;
-      case "textField":
-        field = "text";
-        break;
-      default:
-        field = "";
-    }
-    this.setState(() => ({ [field]: value }));
-  };
+  // handleChange = event => {
+  //   const value = event.target.value;
+  //   let field = "";
+  //
+  //   switch (event.target.id) {
+  //     case "toField":
+  //       field = "to";
+  //       break;
+  //     case "subjectField":
+  //       field = "subject";
+  //       break;
+  //     case "textField":
+  //       field = "text";
+  //       break;
+  //     default:
+  //       field = "";
+  //   }
+  //   this.setState(() => ({ [field]: value }));
+  // };
 
   // newSubmit =  this.props.dispatch((dispatch) => {
   //     dispatch(addMailToMailList(this.state));
@@ -60,9 +61,6 @@ class NewEmail extends Component {
   // };
 
   render() {
-    let to = this.state.to;
-    let subject = this.state.subject;
-    let text = this.state.text;
 
     return (
       <Fragment>
@@ -73,47 +71,7 @@ class NewEmail extends Component {
             <button>Close</button>
           </div>
           <div className="input-fields">
-            {/* Add on submit to form! */}
-            <form className="new-letter-form">
-              <input
-                id="toField"
-                type="text"
-                autoComplete="off"
-                value={to}
-                placeholder="To"
-                onChange={this.handleChange}
-              />
-              <input
-                id="subjectField"
-                type="text"
-                autoComplete="off"
-                value={subject}
-                placeholder="Subject"
-                onChange={this.handleChange}
-              />
-              <textarea
-                id="textField"
-                autoComplete="off"
-                value={text}
-                placeholder=""
-                onChange={this.handleChange}
-              />
-              <div className="bottom-bar">
-                {/* type='submit' */}
-                <button className="send-button">Send</button>
-                <div className="message-field">
-                  <p
-                    className={
-                      this.props.showMsg
-                        ? "new-mail-show-msg"
-                        : "new-mail-hide-msg"
-                    }
-                  >
-                    Your mail has been sent!
-                  </p>
-                </div>
-              </div>
-            </form>
+            <EmailForm onSubmit={this.submit} initialValues={this.getInitialValues()}/>
           </div>
         </div>
       </Fragment>
