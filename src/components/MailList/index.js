@@ -14,65 +14,21 @@ import "./maillist.scss";
 class MailList extends Component {
   getStatus = item => {
     let openedMsg = this.props.mailsToShow;
-
     return openedMsg.includes(item) ? null : "hidden";
-  };
-
-  selectMarkMode = () => {
-    let selectedMails = this.props.selectedMails;
-    // Array filled with ID's of mails that are currently selected
-    let selectedIDs = [];
-    for (let property in selectedMails) {
-      if (selectedMails.hasOwnProperty(property)) {
-        if (selectedMails[property]) {
-          selectedIDs.push(property);
-        }
-      }
-    }
-
-    let allRead = true;
-    let mails = this.props.mailsToShow;
-
-    for (let mail in mails) {
-      if (mails.hasOwnProperty(mail)) {
-        if (!mails[mail].readStatus && selectedIDs.includes(mails[mail].id)) {
-          allRead = false;
-        }
-      }
-    }
-
-    let markingMode = allRead ? "mark as unread" : "mark as read";
-    return {
-      markingMode: markingMode,
-      selectedIDs: selectedIDs
-    };
   };
 
   deleteBtn = event => {
     event.preventDefault();
-    let selectedMails = this.props.selectedMails;
-    let selectedIDs = [];
-    for (let property in selectedMails) {
-      if (selectedMails.hasOwnProperty(property)) {
-        if (selectedMails[property]) {
-          selectedIDs.push(property);
-        }
-      }
-    }
-
-    this.props.deleteEmail(selectedIDs, this.props.activeFolder);
+    this.props.deleteEmail();
   };
 
   markBtn = event => {
     event.preventDefault();
-
-    let data = this.selectMarkMode();
-    this.props.markAsRead(data);
+    this.props.markAsRead();
   };
 
   starBtn = event => {
     event.preventDefault();
-
     this.props.markAsImportant(event.target.id, this.props.activeFolder);
   };
 
@@ -132,7 +88,6 @@ function mapStateToProps(state) {
 
   return {
     mailsToShow: state.mailList[activeFolder],
-    selectedMails: state.input["selected"],
     activeFolder: state.appState.activeFolder.active
   };
 }

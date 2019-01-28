@@ -19,13 +19,13 @@ export function addMailToMailList(mail) {
   };
 }
 
-export function markAsRead(payload) {
+export function markAsRead() {
+  // Added in middleware:
   // payload:
   // mode = "mark as unread" / "mark as read"
   // selectedIDs = ['id1', 'id2', etc]
   return {
-    type: MARK_AS_READ,
-    payload
+    type: MARK_AS_READ
   };
 }
 
@@ -45,11 +45,10 @@ export function selectMail(id, activeFolder) {
   };
 }
 
-export function deleteEmail(id, activeFolder) {
+export function deleteEmail() {
+  // Added in middleware
   // id = [id1, (id2), ...]
   return {
-    type: DELETE_EMAIL,
-    id,
-    activeFolder
+    type: DELETE_EMAIL
   };
 }
