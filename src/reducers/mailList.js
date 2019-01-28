@@ -3,6 +3,7 @@ import { ADD_MAIL_TO_MAIL_LIST } from "../actions/mailList";
 import { MARK_AS_READ } from "../actions/mailList";
 import { MARK_AS_IMPORTANT } from "../actions/mailList";
 import { SELECT_MAIL } from "../actions/mailList";
+import { DELETE_EMAIL } from "../actions/mailList";
 import { MailList } from "../utils/fakeState";
 
 export default function mailList(state = MailList, action) {
@@ -17,13 +18,13 @@ export default function mailList(state = MailList, action) {
       newState.sent.push(action.mail);
       return newState;
     case MARK_AS_READ:
-      let activeFolder = action.currentActiveFolder.active
+      let activeFolder = action.currentActiveFolder.active;
       let temp = {
-        [activeFolder]: [...action.payload],
-      }
+        [activeFolder]: [...action.payload]
+      };
       return {
         ...state,
-        ...temp,
+        ...temp
       };
     case MARK_AS_IMPORTANT:
       let mailListUpd = state[action.activeFolder].map(item => {
@@ -35,10 +36,10 @@ export default function mailList(state = MailList, action) {
       });
       let temp1 = {
         [action.activeFolder]: mailListUpd
-      }
+      };
       return {
         ...state,
-        ...temp1,
+        ...temp1
       };
     case SELECT_MAIL:
       let mailUpd = state[action.activeFolder].map(item => {
@@ -52,6 +53,17 @@ export default function mailList(state = MailList, action) {
       return {
         ...state,
         [state[action.activeFolder]]: mailUpd
+      };
+    case DELETE_EMAIL:
+      const idsToDel = action.id;
+      let tempState = { ...state };
+      const filteredSlice = state[action.activeFolder].filter(val => {
+        return !idsToDel.includes(val.id);
+      });
+      tempState[action.activeFolder] = filteredSlice;
+
+      return {
+        ...tempState
       };
     default:
       return { ...state };

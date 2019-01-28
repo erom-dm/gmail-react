@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { markAsRead, markAsImportant } from "../../actions/mailList";
+import {
+  markAsRead,
+  markAsImportant,
+  deleteEmail
+} from "../../actions/mailList";
 // import { markAsImportant } from "../../actions/mailList";
 //import {NavLink} from 'react-router-dom';
 //import Mail from '../Mail';
@@ -30,10 +34,10 @@ class MailList extends Component {
     let mails = this.props.mailsToShow;
 
     for (let mail in mails) {
-      if(mails.hasOwnProperty(mail)){
-          if (!mails[mail].readStatus && selectedIDs.includes(mails[mail].id)) {
-              allRead = false;
-          }
+      if (mails.hasOwnProperty(mail)) {
+        if (!mails[mail].readStatus && selectedIDs.includes(mails[mail].id)) {
+          allRead = false;
+        }
       }
     }
 
@@ -42,6 +46,21 @@ class MailList extends Component {
       markingMode: markingMode,
       selectedIDs: selectedIDs
     };
+  };
+
+  deleteBtn = event => {
+    event.preventDefault();
+    let selectedMails = this.props.selectedMails;
+    let selectedIDs = [];
+    for (let property in selectedMails) {
+      if (selectedMails.hasOwnProperty(property)) {
+        if (selectedMails[property]) {
+          selectedIDs.push(property);
+        }
+      }
+    }
+
+    this.props.deleteEmail(selectedIDs, this.props.activeFolder);
   };
 
   markBtn = event => {
@@ -54,13 +73,11 @@ class MailList extends Component {
   starBtn = event => {
     event.preventDefault();
 
-    console.log(event.target.id);
     this.props.markAsImportant(event.target.id, this.props.activeFolder);
   };
 
   render() {
     const checkboxForm = "checkbox-form";
-    const importantFrom = "important-form";
     let mailList = this.props.mailsToShow.map(item => {
       let importantStatus = item.important === true ? "star" : "no-star";
       return (
@@ -74,8 +91,6 @@ class MailList extends Component {
             isSelected={item.selected}
             id={item.id}
           />
-
-          {/*IMPORTANT BUTTON TODO*/}
           <button
             className={importantStatus}
             id={item.id}
@@ -93,13 +108,10 @@ class MailList extends Component {
     return (
       <div className="mail-list-container">
         <div className="mail-list__control-bar">
-          <button className="cb__delete-btn">Delete</button>
-          <button
-            onClick={this.markBtn}
-            // type="submit"
-            // form={checkboxForm}
-            className="cb__mark-read-btn"
-          >
+          <button onClick={this.deleteBtn} className="cb__delete-btn">
+            Delete
+          </button>
+          <button onClick={this.markBtn} className="cb__mark-read-btn">
             Mark
           </button>
         </div>
@@ -121,13 +133,14 @@ function mapStateToProps(state) {
   return {
     mailsToShow: state.mailList[activeFolder],
     selectedMails: state.input["selected"],
-    activeFolder: state.appState.activeFolder.active,
+    activeFolder: state.appState.activeFolder.active
   };
 }
 
 const mapDispatchToProps = {
-    markAsRead: markAsRead,
-    markAsImportant: markAsImportant,
+  markAsRead: markAsRead,
+  markAsImportant: markAsImportant,
+  deleteEmail: deleteEmail
 };
 
 // Both this and ^ works

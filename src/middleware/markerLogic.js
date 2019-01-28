@@ -1,8 +1,8 @@
-import { MARK_AS_READ } from "../actions/mailList";
+import { MARK_AS_READ, DELETE_EMAIL } from "../actions/mailList";
 
 const markerLogic = store => next => action => {
   if (action.type === MARK_AS_READ) {
-    let state = {...store.getState()};
+    let state = { ...store.getState() };
     let { markingMode, selectedIDs } = action.payload;
     let mailList = state.mailList[state.appState.activeFolder.active];
 
@@ -16,12 +16,14 @@ const markerLogic = store => next => action => {
     });
 
     const newAction = {
-        type: MARK_AS_READ,
-        payload: mailList,
-        currentActiveFolder: state.appState.activeFolder,
+      type: MARK_AS_READ,
+      payload: mailList,
+      currentActiveFolder: state.appState.activeFolder
     };
 
     return next(newAction);
+  } else if (action.type === DELETE_EMAIL) {
+    let state = { ...store.getState() };
   }
 
   return next(action);
