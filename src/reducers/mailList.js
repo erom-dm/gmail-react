@@ -17,22 +17,28 @@ export default function mailList(state = MailList, action) {
       newState.sent.push(action.mail);
       return newState;
     case MARK_AS_READ:
-          console.log('4 - MailList reducer');
+      let activeFolder = action.currentActiveFolder.active
+      let temp = {
+        [activeFolder]: [...action.payload],
+      }
       return {
         ...state,
-        ...action.payload
+        ...temp,
       };
     case MARK_AS_IMPORTANT:
-      let mailListUpd = state.mailList[state.active].map(item => {
+      let mailListUpd = state[action.activeFolder].map(item => {
         let newObj = { ...item };
         if (newObj.id === action.id) {
           newObj.important = !newObj.important;
         }
         return newObj;
       });
+      let temp1 = {
+        [action.activeFolder]: mailListUpd
+      }
       return {
         ...state,
-        [state.mailList[state.active]]: mailListUpd
+        ...temp1,
       };
     case SELECT_MAIL:
       let mailUpd = state[action.activeFolder].map(item => {

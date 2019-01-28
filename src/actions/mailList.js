@@ -28,10 +28,11 @@ export function markAsRead(payload) {
   };
 }
 
-export function markAsImportant(id) {
+export function markAsImportant(id, activeFolder) {
   return {
     type: MARK_AS_IMPORTANT,
-    id
+    id,
+    activeFolder,
   };
 }
 

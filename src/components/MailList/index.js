@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { markAsRead } from "../../actions/mailList";
+import { markAsRead, markAsImportant } from "../../actions/mailList";
 // import { markAsImportant } from "../../actions/mailList";
 //import {NavLink} from 'react-router-dom';
 //import Mail from '../Mail';
@@ -46,10 +46,16 @@ class MailList extends Component {
 
   markBtn = event => {
     event.preventDefault();
-    let data = this.selectMarkMode();
 
-    console.log('1 - MailList component');
+    let data = this.selectMarkMode();
     this.props.markAsRead(data);
+  };
+
+  starBtn = event => {
+    event.preventDefault();
+
+    console.log(event.target.id);
+    this.props.markAsImportant(event.target.id, this.props.activeFolder);
   };
 
   render() {
@@ -73,7 +79,7 @@ class MailList extends Component {
           <button
             className={importantStatus}
             id={item.id}
-            form={importantFrom}
+            onClick={this.starBtn}
           />
           <div id={item.id} className="li-content">
             {item.from} - {item.subject}
@@ -114,12 +120,14 @@ function mapStateToProps(state) {
 
   return {
     mailsToShow: state.mailList[activeFolder],
-    selectedMails: state.input["selected"]
+    selectedMails: state.input["selected"],
+    activeFolder: state.appState.activeFolder.active,
   };
 }
 
 const mapDispatchToProps = {
     markAsRead: markAsRead,
+    markAsImportant: markAsImportant,
 };
 
 // Both this and ^ works
