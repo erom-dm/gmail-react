@@ -5,6 +5,7 @@ import {
   markAsImportant,
   deleteEmail
 } from "../../actions/mailList";
+import { openMail } from "../../actions/input";
 // import { markAsImportant } from "../../actions/mailList";
 //import {NavLink} from 'react-router-dom';
 //import Mail from '../Mail';
@@ -32,6 +33,12 @@ class MailList extends Component {
     this.props.markAsImportant(event.target.id, this.props.activeFolder);
   };
 
+  openMail = event => {
+    event.preventDefault();
+    console.log(event.target.id);
+    this.props.openMail(event.target.id);
+  };
+
   render() {
     const checkboxForm = "checkbox-form";
     let mailList = this.props.mailsToShow.map(item => {
@@ -40,6 +47,7 @@ class MailList extends Component {
         <li
           key={item.id}
           className={item.readStatus ? "let" : "let active-letter"}
+          onClick={this.OpenMail}
         >
           <CheckBox
             label=""
@@ -95,7 +103,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   markAsRead: markAsRead,
   markAsImportant: markAsImportant,
-  deleteEmail: deleteEmail
+  deleteEmail: deleteEmail,
+  openMail: openMail
 };
 
 // Both this and ^ works

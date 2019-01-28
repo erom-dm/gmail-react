@@ -31,4 +31,4 @@ export let MailList = {
 export let activeFolder = { active: "received" };
 export let showNewMsgNotif = { showMsg: false };
 export let selected = {};
-export let important = {};
+export let opened = null;

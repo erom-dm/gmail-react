@@ -1,5 +1,5 @@
 export const ADD_SELECTED = "ADD_SELECTED";
-export const ADD_IMPORTANT = "ADD_IMPORTANT";
+export const OPEN_MAIL = "OPEN_MAIL";
 
 export function addSelected(payload) {
   return {
@@ -8,9 +8,9 @@ export function addSelected(payload) {
   };
 }
 
-export function addImportant(payload) {
+export function openMail(id) {
   return {
-    type: ADD_IMPORTANT,
-    payload
+    type: OPEN_MAIL,
+    id
   };
 }
