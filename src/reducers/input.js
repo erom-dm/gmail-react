@@ -12,7 +12,7 @@ export default function input(state = { selected, opened }, action) {
       return merge(stateCpy, temp);
     case OPEN_MAIL:
       const idToOpen = { opened: action.id };
-
+      console.log("--> open mail reducer");
       return {
         ...stateCpy,
         ...idToOpen

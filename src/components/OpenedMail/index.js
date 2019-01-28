@@ -19,10 +19,12 @@ const mapStateToProps = state => {
   const activeFolder = state.appState.activeFolder.active;
   const openedId = state.input.opened;
 
+  let mail = state.mailList[activeFolder].filter(item => {
+    return item.id === openedId;
+  });
+
   return {
-    mail: state.mailList[activeFolder].filter(item => {
-      return item.id === openedId;
-    })
+    mail: mail[0]
   };
 };
 

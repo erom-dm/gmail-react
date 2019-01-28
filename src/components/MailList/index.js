@@ -10,6 +10,7 @@ import { openMail } from "../../actions/input";
 //import {NavLink} from 'react-router-dom';
 //import Mail from '../Mail';
 import CheckBox from "../CheckBox";
+import OpenMail from "../OpenedMail/index";
 import "./maillist.scss";
 
 class MailList extends Component {
@@ -40,6 +41,7 @@ class MailList extends Component {
   };
 
   render() {
+    const openedEmail = this.props.openID;
     const checkboxForm = "checkbox-form";
     let mailList = this.props.mailsToShow.map(item => {
       let importantStatus = item.important === true ? "star" : "no-star";
@@ -79,13 +81,17 @@ class MailList extends Component {
             Mark
           </button>
         </div>
-        <form
-          id={checkboxForm}
-          className="mail-list-form"
-          onSubmit={this.handleSubmit}
-        >
-          <ul className="mail-list">{mailList}</ul>
-        </form>
+        {openedEmail ? (
+          <OpenMail />
+        ) : (
+          <form
+            id={checkboxForm}
+            className="mail-list-form"
+            onSubmit={this.handleSubmit}
+          >
+            <ul className="mail-list">{mailList}</ul>
+          </form>
+        )}
       </div>
     );
   }
@@ -96,7 +102,8 @@ function mapStateToProps(state) {
 
   return {
     mailsToShow: state.mailList[activeFolder],
-    activeFolder: state.appState.activeFolder.active
+    activeFolder: state.appState.activeFolder.active,
+    openID: state.input.opened
   };
 }
 
